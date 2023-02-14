@@ -8,10 +8,4 @@ class AdminController < ApplicationController
   def show
    @application = Application.find(params[:id])
   end
-
-  def update
-    @application = Application.find(params[:id])
-    @application.params_status(@application, params[:status])
-    redirect_to "/admin/applications/#{@application.id}"
-  end
 end

@@ -34,7 +34,7 @@ RSpec.describe Application, type: :model do
       app_1 = Application.create!(name: 'Jonah Hill', street_address: '65 High St', city: 'New York', state: 'NY', zip: 28938, status: "Pending", description: 'i luv animals') 
       pet_1 = app_1.pets.create!(adoptable: true, age: 3, breed: 'doberman', name: 'Lobster', shelter_id: shelter_1.id)
 
-      app_1.params_status('a', app_1.id)
+      app_1.params_status(app_1, 'a')
 
       expect(app_1.status).to eq("Approved") # WHY DOESN"T THIS WORK?!
     end
@@ -44,7 +44,7 @@ RSpec.describe Application, type: :model do
       app_1 = Application.create(name: 'Jonah Hill', street_address: '65 High St', city: 'New York', state: 'NY', zip: 28938, status: "Pending", description: 'i luv animals') 
       pet_1 = app_1.pets.create(adoptable: true, age: 3, breed: 'doberman', name: 'Lobster', shelter_id: shelter_1.id)
 
-      app_1.params_status('r', app_1.id)
+      app_1.params_status(app_1, 'r')
 
       expect(app_1.status).to eq("Rejected")
     end

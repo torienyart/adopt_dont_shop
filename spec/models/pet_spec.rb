@@ -39,5 +39,17 @@ RSpec.describe Pet, type: :model do
         expect(@pet_3.shelter_name).to eq(@shelter_1.name)
       end
     end
+    describe '#status' do
+      let!(:shelter_1) {Shelter.create(name: 'Fancy pets of Colorado', city: 'Denver, CO', foster_program: true, rank: 10)}
+      let!(:app_1) { Application.create(name: 'Jonah Hill', street_address: '65 High St', city: 'New York', state: 'NY', zip: 28938, status: "Pending", description: 'i luv animals') }
+      let!(:pet_1) { app_1.pets.create(adoptable: true, age: 3, breed: 'doberman', name: 'Lobster', shelter_id: shelter_1.id) }
+      let!(:app_pet) {pet_1.application_pets.where(application_id: app_1.id).first}
+      it 'can give the status for a specific app_pet' do
+        app_pet.update_status(app_pet, 'a')
+
+        expect(pet_1.status(app_1.id)).to eq('Approved')
+      end
+
+    end
   end
 end

@@ -1,13 +1,7 @@
 <% if @application.in_progress? %>
 <div>
 <h1>Application Preview</h1>
-<h3>Application Status:<%@application.update_status%><%= @application.status %></h3>
-<p>Applicant Name: <%= @application.name %></p>
-<p>Applicant Address: <%= @application.street_address %> <%=@application.city %>, <%= @application.state%> <%= @application.zip%> </p>
-<p>Application Justification: <%= @application.description %></p>
-<p>Pets Applied For: <% @application.pets.each do |pet| %>
-                          <%= link_to "#{pet.name}", "/pets/#{pet.id}"%>
-                    <% end%></p>
+<%= render partial: 'app_show'%>
 </div>
 <%end%>
 <br>
@@ -49,13 +43,7 @@
 <% if !@application.in_progress? %>
       <div> 
       <h1>Thanks for Applying!</h1>
-      <h3>Application Status:<%= @application.status %></h3>
-      <p>Applicant Name: <%= @application.name %></p>
-      <p>Applicant Address: <%= @application.street_address %> <%=@application.city %>, <%= @application.state%> <%= @application.zip%> </p>
-      <p>Application Justification: <%= @application.description %></p>
-      <p>Pets Applied For <% @application.pets.each do |pet| %>
-                              <%= link_to "#{pet.name}", "/pets/#{pet.id}"%>
-                        <% end%></p>
+      <%= render partial: 'app_show'%>
       </div>
 <%end%>
 

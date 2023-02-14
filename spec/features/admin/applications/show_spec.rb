@@ -49,9 +49,37 @@ RSpec.describe 'admin applications show page' do
 
         click_button 'Reject'
 
-        save_and_open_page
-
         expect(page).to have_content("Lobster - Rejected")
+      end
+    end
+
+    describe 'When there are two applications in the system for the same pet' do
+      let!(:shelter_1) {Shelter.create(name: 'Fancy pets of Colorado', city: 'Denver, CO', foster_program: true, rank: 10)}
+      let!(:pet_1) { Pet.create(adoptable: true, age: 3, breed: 'doberman', name: 'Lobster', shelter_id: shelter_1.id) }
+      let!(:app_1) { pet_1.applications.create(name: 'Jonah Hill', street_address: '65 High St', city: 'New York', state: 'NY', zip: 28938, status: "Pending", description: 'i luv animals') }
+      let!(:app_2) { pet_1.applications.create(name: 'Nick Fury', street_address: '123 Avenger Ave', city: 'New York', state: 'NY', zip: 28938, status: "Pending", description: 'i have an eye patch') }
+
+      describe 'When I approve or reject the pet for one application' do
+        before :each do
+          visit "/admin/applications/#{app_1.id}"
+          click_button 'Approve'
+        end
+
+        describe "When I visit the other application's admin show page" do
+          before :each do
+            visit "/admin/applications/#{app_2.id}"
+          end
+
+          it 'I do not see that the pet has been accepted or rejected for that application' do
+            expect(page).to have_no_content("Approved")
+            expect(page).to have_no_content("Rejected")
+          end
+           
+          it 'I see buttons to approve or reject the pet for this specific application' do
+            expect(page).to have_button("Approve")
+            expect(page).to have_button("Reject")
+          end
+        end
       end
     end
   end

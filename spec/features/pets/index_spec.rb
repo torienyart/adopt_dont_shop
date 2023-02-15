@@ -55,10 +55,10 @@ RSpec.describe 'the pets index' do
     expect(page).to have_content("Delete #{pet_1.name}")
     expect(page).to have_content("Delete #{pet_2.name}")
 
-    click_link("Delete #{pet_1.name}")
+    click_link("Delete #{pet_2.name}")
 
     expect(page).to have_current_path("/pets")
-    expect(page).to_not have_content(pet_1.name)
+    expect(page).to_not have_content(pet_2.name)
   end
 
   it 'has a text box to filter results by keyword' do

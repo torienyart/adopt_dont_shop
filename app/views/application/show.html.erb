@@ -2,6 +2,9 @@
 <div>
 <h1>Application Preview</h1>
 <%= render partial: 'app_show'%>
+ <p>Pets Applied For: <% @application.pets.each do |pet| %>
+                              <%= link_to "#{pet.name}", "/pets/#{pet.id}"%>
+                        <% end%></p>
 </div>
 <%end%>
 <br>
@@ -44,6 +47,9 @@
       <div> 
       <h1>Thanks for Applying!</h1>
       <%= render partial: 'app_show'%>
+       <p>Pets Applied For: <% @application.pets.each do |pet| %>
+                              <%= link_to "#{pet.name}", "/pets/#{pet.id}"%>
+                        <% end%></p>
       </div>
 <%end%>
 

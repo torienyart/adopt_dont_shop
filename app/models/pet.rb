@@ -11,7 +11,13 @@ class Pet < ApplicationRecord
 
   def status(app_id)
     app_pet = application_pets.where(application_id: app_id).first
-    app_pet.status
+    if app_pet.status == nil
+      false
+    elsif app_pet.status == "Approved"
+      "Approved"
+    elsif app_pet.status == "Rejected"
+      "Rejected"
+    end
   end
 
   def self.adoptable

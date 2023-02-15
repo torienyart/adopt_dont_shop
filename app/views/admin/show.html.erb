@@ -1,6 +1,6 @@
 <%= render partial: 'app_show'%>
 <h3>Pets Applied For <% @application.pets.each do |pet| %></h3>
-                        <% if pet.status(@application.id) == nil %>
+                        <% if pet.status(@application.id) == false %>
                             <%= link_to "#{pet.name}", "/pets/#{pet.id}"%> 
                             <%= button_to "Approve", "/admin/applications/#{@application.id}", params: {status: 'a', pet: pet.id}, method: :patch %>
                             <%= button_to "Reject", "/admin/applications/#{@application.id}",params: {status: 'r', pet: pet.id}, method: :patch %>

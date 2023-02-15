@@ -11,7 +11,7 @@ class Pet < ApplicationRecord
 
   def status(app_id)
     app_pet = application_pets.where(application_id: app_id).first
-    if app_pet.status == nil
+    if app_pet == nil
       false
     elsif app_pet.status == "Approved"
       "Approved"
